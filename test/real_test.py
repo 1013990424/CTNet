@@ -15,6 +15,7 @@ model.eval()
 
 def normalization(img):
     img = np.array(img, dtype="float32")
+    img = (img * 1.0) / 255
     img_max = np.max(img)
     img_min = np.min(img)
     img_norm = np.float32((img - img_min) / np.maximum((img_max - img_min), 0.001))
