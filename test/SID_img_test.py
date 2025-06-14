@@ -124,7 +124,7 @@ TEST_PREFIXES = set([
 ])
 
 # 设置增强结果路径和 GT 图像路径（均为 PNG / JPG 格式图像）
-enhanced_path = '/home/pc/Desktop/SID/LLFormer'
+enhanced_path = '/home/pc/Desktop/SID/CTNet'
 gt_path = '/data/low_light_dataset/SID/long_sid2'
 
 eval_images(enhanced_path, gt_path, TEST_PREFIXES)
