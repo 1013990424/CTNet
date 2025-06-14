@@ -1,4 +1,4 @@
-# CTNet-Color-Transformation-Network-for-Low-light-Image-Enhancement
+# CTNet: Color-Transformation-Network-for-Low-light-Image-Enhancement
 
 the results can be download in 
 https://pan.baidu.com/s/1JCMB6yB0hzvmlmrjGUFFuA?pwd=9n8t
