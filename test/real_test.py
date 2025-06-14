@@ -8,7 +8,7 @@ import os
 import time
 #模型初始化
 model = Net()
-model_path = './output/real/best.pth'
+model_path = './output/real.pth'
 model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')), strict=True)
 model = model.cuda()
 model.eval()
