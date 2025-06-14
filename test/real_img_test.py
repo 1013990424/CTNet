@@ -52,11 +52,6 @@ def evaluate_folder(model_name):
         pred = pred[:h, :w]
         gt = gt[:h, :w]
 
-        # 灰度均衡调整
-        mean_gray_pred = cv2.cvtColor(pred, cv2.COLOR_BGR2GRAY).mean()
-        mean_gray_gt = cv2.cvtColor(gt, cv2.COLOR_BGR2GRAY).mean()
-        pred = np.clip(pred * (mean_gray_gt / (mean_gray_pred + 1e-8)), 0, 1)
-
         # 指标计算
         psnr_score = psnr(pred, gt)
         pred_tensor = to_tensor(pred).unsqueeze(0).cuda()
