@@ -68,7 +68,7 @@ def evaluate_folder(model_name):
 
 # ========== 主程序 ========== #
 if __name__ == "__main__":
-    model_names = ["Restormer", "MIRNet", "NAFNet", "MambaIR", "UFormer", "RetinexFormer", "SNR"]
+    model_names = ["CTNet"]
 
     print("Model\tPSNR\tSSIM\tLPIPS")
     for name in model_names:
