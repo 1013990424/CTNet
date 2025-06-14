@@ -5,7 +5,7 @@ from PIL import Image
 from skimage import io
 from skimage.metrics import peak_signal_noise_ratio as psnr
 from skimage.metrics import structural_similarity as ssim
-from transformer import Net
+from CTNet import Net
 import lpips  # LPIPS 需要网络支持
 import cv2
 import pytorch_ssim
