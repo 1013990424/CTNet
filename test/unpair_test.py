@@ -1,5 +1,5 @@
 #测试
-from transformer import Net, rgb2hsv
+from CTNet import Net, rgb2hsv
 from PIL import Image
 from skimage import io, color
 import torch
