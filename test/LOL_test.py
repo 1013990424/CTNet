@@ -1,6 +1,6 @@
 #测试
 import time
-from transformer import Net
+from CTNet import Net
 from PIL import Image
 from skimage import io, color
 import pytorch_ssim
