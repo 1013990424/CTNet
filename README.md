@@ -1,4 +1,4 @@
-# CTNet: Color-Transformation-Network-for-Low-light-Image-Enhancement
+# CTNet: Color Transformation Network for Low-light Image Enhancement
 
 # 1. Create Environment
 Python 3.10.12  
