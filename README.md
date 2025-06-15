@@ -12,7 +12,7 @@ SDSD: https://drive.google.com/drive/folders/14TF0f9YQwZEntry06M93AMd70WH00Mg6
 
 # 3. Testing
 
-Testing using pre trained weights  
+Testing with pre-trained models  
 ```python
 # LOL
 python test/LOL_test.py
@@ -33,7 +33,7 @@ python test/SID_test.py
 python test/unpair_test.py 
 ```
 
-Use images for testing  
+Testing with images   
 the results can be download in 
 https://pan.baidu.com/s/1JCMB6yB0hzvmlmrjGUFFuA?pwd=9n8t
 code: 9n8t 
