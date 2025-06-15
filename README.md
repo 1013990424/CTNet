@@ -12,27 +12,6 @@ SDSD: https://drive.google.com/drive/folders/14TF0f9YQwZEntry06M93AMd70WH00Mg6
 
 # 3. Testing
 
-Testing with pre-trained models  
-```python
-# LOL
-python test/LOL_test.py
-
-# LOL-v2-real
-python test/real_test.py
-
-# LOL-v2-syn
-python test/syn_test.py
-
-# SDSD
-python test/SDSD_test.py
-
-# SID
-python test/SID_test.py
-
-# unpair
-python test/unpair_test.py 
-```
-
 Testing with images   
 the results can be download in 
 https://pan.baidu.com/s/1JCMB6yB0hzvmlmrjGUFFuA?pwd=9n8t
@@ -53,4 +32,25 @@ python test/SDSD_img_test.py
 
 # SID
 python test/SID_img_test.py
+```
+
+Testing with pre-trained models  
+```python
+# LOL
+python test/LOL_test.py
+
+# LOL-v2-real
+python test/real_test.py
+
+# LOL-v2-syn
+python test/syn_test.py
+
+# SDSD
+python test/SDSD_test.py
+
+# SID
+python test/SID_test.py
+
+# unpair
+python test/unpair_test.py 
 ```
