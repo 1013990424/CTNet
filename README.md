@@ -15,8 +15,10 @@ SID: https://drive.google.com/drive/folders/1eQ-5Z303sbASEvsgCBSDbhijzLTWQJtR
 SDSD: https://drive.google.com/drive/folders/14TF0f9YQwZEntry06M93AMd70WH00Mg6
 
 # 3. Testing
+```python
 python test/LOL_test.py  
 python test/real_test.py  
 python test/syn_test.py  
 python test/SDSD_test.py  
 python test/SID_test.py 
+```
