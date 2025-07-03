@@ -21,6 +21,9 @@ code: 9n8t
 # LOL
 python test/LOL_img_test.py
 
+# 4. Training
+coming soon
+
 # LOL-v2-real
 python test/real_img_test.py
 
