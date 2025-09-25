@@ -76,15 +76,15 @@ python test/unpair_test.py
 
 
   <p align="center">
-  <img width="900" src="Figs/results1.jpg">
+  <img width="900" src="Figs/results1.png">
 	</p>
 
   <p align="center">
-  <img width="500" src="Figs/results2.jpg">
+  <img width="500" src="Figs/results2.png">
 	</p>
 	
   <p align="center">
-  <img width="500" src="Figs/results3.jpg">
+  <img width="500" src="Figs/results3.png">
   </details>
 
 <details>
