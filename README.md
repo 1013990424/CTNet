@@ -80,7 +80,7 @@ python test/unpair_test.py
 	</p>
 
   <p align="center">
-  <img width="500" src="Figs/results2.png">
+  <img width="900" src="Figs/results2.png">
 	</p>
 	
   <p align="center">
@@ -92,23 +92,15 @@ python test/unpair_test.py
 
 
   <p align="center">
-  <img width="900" src="figs/fig1.jpg">
+  <img width="900" src="Figs/LOL.png">
 	</p>
 
   <p align="center">
-  <img width="900" src="figs/fig2.jpg">
+  <img width="900" src="Figs/SDSD.png">
 	</p>
 
   <p align="center">
-  <img width="900" src="figs/fig3.jpg">
-	</p>
-
-   <p align="center">
-  <img width="900" src="figs/fig4.jpg">
-	</p>
- 
-  <p align="center">
-  <img width="900" src="figs/fig5.jpg">
+  <img width="900" src="Figs/SID.png">
 	</p>
  
   </details>
