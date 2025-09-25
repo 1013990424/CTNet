@@ -27,7 +27,7 @@ This is the official PyTorch code for the paper "[[CTNet: Color Transformation N
 
 ## 3.Testing
 
-**All the results for 5 datasets can be obtained from [Baidu Netdisk](https://pan.baidu.com/s/1HaQ059zBKmieowWSWOXtlg?pwd=bssk)**
+**All the results for 5 datasets can be obtained from [Baidu Netdisk](https://pan.baidu.com/s/10CJzxuNrLaVk6f8nbsFIiQ?pwd=5x1b)**
 
 Testing with images   
 ```python
