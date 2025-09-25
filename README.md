@@ -15,17 +15,17 @@ This is the official PyTorch code for the paper "[[CTNet: Color Transformation N
 - [x] [Results](https://github.com/NJUPT-IPR-XuLintao/UPT-Flow/blob/main/README.md#-results)
 - [x] [Acknowledgements](https://github.com/NJUPT-IPR-XuLintao/UPT-Flow/blob/main/README.md#-acknowledgements)
 
-## Datasets
+## 1.Datasets
 
 1、LOLv2 (real & synthetic): Wenhan Yang, Haofeng Huang, Wenjing Wang, Shiqi Wang, and Jiaying Liu. "Sparse Gradient Regularized Deep Retinex Network for Robust Low-Light Image Enhancement", TIP, 2021. [[Baiduyun (extracted code: l9xm)]](https://pan.baidu.com/s/1U9ePTfeLlnEbr5dtI1tm5g) [Google Drive](https://drive.google.com/file/d/1dzuLCk9_gE2bFF222n3-7GVUlSVHpMYC/view?usp=sharing) 
 
 2、SMID and SDSD (indoor & outdoor): Please refer to [SNRNet(CVPR2022)](https://github.com/dvlab-research/SNR-Aware-Low-Light-Enhance)
 
-## Create Environment
+## 2.Create Environment
 Python 3.10.12  
 Pytorch 2.6.0
 
-## Testing
+## 3.Testing
 
 **All the results for 5 datasets can be obtained from [Baidu Netdisk](https://pan.baidu.com/s/1JCMB6yB0hzvmlmrjGUFFuA?pwd=9n8t)**
 
@@ -69,7 +69,7 @@ python test/unpair_test.py
 ```
 
 
-##  Results
+## 4.Results
 
 <details>
 <summary>Quantitative Comparison (click to expan)</summary>
@@ -110,11 +110,11 @@ python test/unpair_test.py
  
   </details>
 
-## Contact
+## 5.Contact
 
 If you have any questions, please feel free to contact me via email at xielidong@buaa.edu.cn.
 
-## Citation
+## 6.Citation
 If you find our work useful for your research, please cite our paper
 ```
 @article{XIE2026112360,
@@ -130,7 +130,7 @@ author = {Lidong Xie and Runmin Cong and Ju Dai and Wenhan Yang and Junjun Pan a
 }
 ```
 
-##  Acknowledgements
+## 7.Acknowledgements
 The codes are based on [RetinexFormer](https://github.com/caiyuanhao1998/Retinexformer), [Restormer](https://github.com/swz30/Restormer), and [Uformer](https://github.com/ZhendongWang6/Uformer). Please also follow their licenses. Thanks for their awesome works.
 
 
