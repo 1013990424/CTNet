@@ -22,8 +22,8 @@ This is the official PyTorch code for the paper "[[CTNet: Color Transformation N
 2、SMID and SDSD (indoor & outdoor): Please refer to [SNRNet(CVPR2022)](https://github.com/dvlab-research/SNR-Aware-Low-Light-Enhance)
 
 ## 2.Create Environment
-Python 3.10.12  
-Pytorch 2.6.0
+1、Python 3.10.12  
+2、Pytorch 2.6.0
 
 ## 3.Testing
 
