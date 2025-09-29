@@ -105,11 +105,11 @@ python test/unpair_test.py
  
   </details>
 
-## 5.Contact
+## Contact
 
 If you have any questions, please feel free to contact me via email at xielidong@buaa.edu.cn.
 
-## 6.Citation
+## Citation
 If you find our work useful for your research, please cite our paper
 ```
 @article{XIE2026112360,
@@ -125,7 +125,7 @@ author = {Lidong Xie and Runmin Cong and Ju Dai and Wenhan Yang and Junjun Pan a
 }
 ```
 
-## 7.Acknowledgements
+## Acknowledgements
 The codes are based on [RetinexFormer](https://github.com/caiyuanhao1998/Retinexformer), [Restormer](https://github.com/swz30/Restormer), and [Uformer](https://github.com/ZhendongWang6/Uformer). Please also follow their licenses. Thanks for their awesome works.
 
 
