@@ -117,6 +117,7 @@ class PreNorm(nn.Module):
 
 class GELU(nn.Module):
     def forward(self, x):
+        #return 0.5 * x * (1 + F.tanh(np.sqrt(2 / np.pi) * (x + 0.044715 * pow(x, 3))))
         return F.gelu(x)
 
 def conv(in_channels, out_channels, kernel_size, bias=False, padding = 1, stride = 1):
@@ -127,105 +128,85 @@ def conv(in_channels, out_channels, kernel_size, bias=False, padding = 1, stride
 class Block(nn.Module):
     def __init__(self, input_dim):
         super(Block, self).__init__()
-        self.extended_dim = input_dim - input_dim % 6 + 6
-        self.group_dim = self.extended_dim // 6
+        self.up_dim = input_dim - input_dim % 6 + 6
+        self.temp = self.up_dim // 6
+        self.conv1 = nn.Conv2d(input_dim, input_dim, 1, 1, 0)
+        self.conv2 = nn.Conv2d(input_dim, input_dim, 1, 1, 0)
+        self.conv3 = nn.Conv2d(input_dim, input_dim, 1, 1, 0)
+        self.conv4 = nn.Conv2d(input_dim, input_dim, 1, 1, 0)
+        self.conv5 = nn.Conv2d(input_dim, self.up_dim, 1, 1, 0)
+        self.conv6 = nn.Conv2d(self.temp, input_dim * 2, 1, 1, 0)
+        self.conv7 = nn.Conv2d(input_dim * 12, input_dim * 2, 1, 1, 0)
+        self.conv8 = nn.Conv2d(input_dim * 3, input_dim, 1, 1, 0)
+        self.lrelu = nn.LeakyReLU()
+        self.sigmoid = nn.Sigmoid()
 
-        # conv layers
-        self.conv_fusion1 = nn.Conv2d(input_dim, input_dim, 1, 1, 0)
-        self.conv_fusion2 = nn.Conv2d(input_dim, input_dim, 1, 1, 0)
-        self.conv_fusion3 = nn.Conv2d(input_dim, input_dim, 1, 1, 0)
-        self.conv_fusion4 = nn.Conv2d(input_dim, input_dim, 1, 1, 0)
-        self.conv_expand = nn.Conv2d(input_dim, self.extended_dim, 1, 1, 0)
-        self.conv_group = nn.Conv2d(self.group_dim, input_dim * 2, 1, 1, 0)
-        self.conv_merge1 = nn.Conv2d(input_dim * 12, input_dim * 2, 1, 1, 0)
-        self.conv_merge2 = nn.Conv2d(input_dim * 3, input_dim, 1, 1, 0)
+    def forward(self, hfea, sfea, vfea):
+        """pre"""
+        c = sfea * vfea
+        c = self.lrelu(self.conv1(c))
+        x = c * self.lrelu(self.conv2(hfea))
+        x = self.lrelu(self.conv3(x))
+        m = vfea - c
+        m = self.lrelu(self.conv4(m))
+        """up"""
+        hfea = self.lrelu(self.conv5(hfea))
+        """group"""
+        batchsize, num_channels, height, width = hfea.data.size()
+        hfea = hfea.reshape(batchsize, self.temp, 6, height, width)
+        hfea = hfea.permute(0, 2, 1, 3, 4)  # 交换不同组的信息
+        hfea = hfea.reshape(batchsize, num_channels, height, width)
+        feas = []
+        hfeas = torch.chunk(hfea, 6, 1)
+        fea = torch.cat([x, c], dim=1)
+        for block in hfeas:
+            group_fea = self.sigmoid(self.conv6(block)) * fea
+            feas.append(group_fea)
+        fea = torch.cat(feas, dim=1)
+        """tail"""
+        fea = self.lrelu(self.conv7(fea))
+        fea = torch.cat([fea, m], dim=1)
+        fea = self.lrelu(self.conv8(fea))
 
-        self.act_lrelu = nn.LeakyReLU()
-        self.act_sigmoid = nn.Sigmoid()
+        return fea
 
-    def forward(self, high_feat, spatial_feat, var_feat):
-        """Feature fusion"""
-        cross_feat = spatial_feat * var_feat
-        cross_feat = self.act_lrelu(self.conv_fusion1(cross_feat))
-
-        fusion_feat = cross_feat * self.act_lrelu(self.conv_fusion2(high_feat))
-        fusion_feat = self.act_lrelu(self.conv_fusion3(fusion_feat))
-
-        diff_feat = var_feat - cross_feat
-        diff_feat = self.act_lrelu(self.conv_fusion4(diff_feat))
-
-        """Feature expansion"""
-        high_feat = self.act_lrelu(self.conv_expand(high_feat))
-
-        """Group processing"""
-        b, c, h, w = high_feat.data.size()
-        high_feat = high_feat.reshape(b, self.group_dim, 6, h, w)
-        high_feat = high_feat.permute(0, 2, 1, 3, 4)  # swap group dimension
-        high_feat = high_feat.reshape(b, c, h, w)
-
-        group_feats = []
-        high_feat_groups = torch.chunk(high_feat, 6, 1)
-        fusion_input = torch.cat([fusion_feat, cross_feat], dim=1)
-
-        for group in high_feat_groups:
-            group_output = self.act_sigmoid(self.conv_group(group)) * fusion_input
-            group_feats.append(group_output)
-
-        combined_feat = torch.cat(group_feats, dim=1)
-
-        """Tail fusion"""
-        combined_feat = self.act_lrelu(self.conv_merge1(combined_feat))
-        combined_feat = torch.cat([combined_feat, diff_feat], dim=1)
-        combined_feat = self.act_lrelu(self.conv_merge2(combined_feat))
-
-        return combined_feat
-
-
-class AggregateBlock(nn.Module):
+class Aggregate_Block(nn.Module):
     def __init__(self, input_dim):
-        super(AggregateBlock, self).__init__()
-        # mask generation
-        self.conv_rgb_mask = nn.Conv2d(input_dim, 1, 3, 1, 1)
-        self.conv_hsv_mask = nn.Conv2d(input_dim, 1, 3, 1, 1)
+        super(Aggregate_Block, self).__init__()
+        self.conv1 = nn.Conv2d(input_dim, 1, 3, 1, 1)
+        self.conv2 = nn.Conv2d(input_dim, 1, 3, 1, 1)
+        self.conv3 = nn.Conv2d(input_dim * 2, input_dim, 1, 1, 0)
+        self.fc1 = nn.Conv2d(input_dim, input_dim // 16, kernel_size=1)
+        self.fc2 = nn.Conv2d(input_dim // 16, input_dim, kernel_size=1)
+        self.fc3= nn.Conv2d(input_dim, input_dim // 16, kernel_size=1)
+        self.fc4 = nn.Conv2d(input_dim // 16, input_dim, kernel_size=1)
+        self.avg = nn.AdaptiveAvgPool2d(1)
+        self.sigmoid = nn.Sigmoid()
+        self.lrelu = nn.LeakyReLU()
 
-        # fusion
-        self.conv_fusion = nn.Conv2d(input_dim * 2, input_dim, 1, 1, 0)
+    def forward(self, rgb_fea, hsv_fea):
+        fea = rgb_fea - hsv_fea
+        # RGB的通道
+        vec = self.avg(fea)
+        vec = self.fc1(vec)
+        vec = self.lrelu(vec)
+        vec = self.fc2(vec)
+        rgb_vec = self.sigmoid(vec)
+        rgb_mask = self.sigmoid(self.conv1(fea))
 
-        # attention layers
-        self.fc_rgb_down = nn.Conv2d(input_dim, input_dim // 16, kernel_size=1)
-        self.fc_rgb_up = nn.Conv2d(input_dim // 16, input_dim, kernel_size=1)
-        self.fc_hsv_down = nn.Conv2d(input_dim, input_dim // 16, kernel_size=1)
-        self.fc_hsv_up = nn.Conv2d(input_dim // 16, input_dim, kernel_size=1)
+        vec1 = self.avg(fea)
+        vec1 = self.fc3(vec1)
+        vec1 = self.lrelu(vec1)
+        vec1 = self.fc4(vec1)
+        hsv_vec = self.sigmoid(vec1)
+        hsv_mask = self.sigmoid(self.conv2(fea))
 
-        self.global_pool = nn.AdaptiveAvgPool2d(1)
-        self.act_sigmoid = nn.Sigmoid()
-        self.act_lrelu = nn.LeakyReLU()
+        rgb_fea = hsv_mask * hsv_vec * rgb_fea + rgb_fea
+        hsv_fea = rgb_mask * rgb_vec * hsv_fea + hsv_fea
+        fea = torch.cat([rgb_fea, hsv_fea], dim=1)
+        fea = self.conv3(fea)
 
-    def forward(self, rgb_feat, hsv_feat):
-        diff_feat = rgb_feat - hsv_feat
-
-        # RGB attention
-        rgb_vec = self.global_pool(diff_feat)
-        rgb_vec = self.act_lrelu(self.fc_rgb_down(rgb_vec))
-        rgb_vec = self.fc_rgb_up(rgb_vec)
-        rgb_vec = self.act_sigmoid(rgb_vec)
-        rgb_mask = self.act_sigmoid(self.conv_rgb_mask(diff_feat))
-
-        # HSV attention
-        hsv_vec = self.global_pool(diff_feat)
-        hsv_vec = self.act_lrelu(self.fc_hsv_down(hsv_vec))
-        hsv_vec = self.fc_hsv_up(hsv_vec)
-        hsv_vec = self.act_sigmoid(hsv_vec)
-        hsv_mask = self.act_sigmoid(self.conv_hsv_mask(diff_feat))
-
-        # apply attention
-        rgb_feat = hsv_mask * hsv_vec * rgb_feat + rgb_feat
-        hsv_feat = rgb_mask * rgb_vec * hsv_feat + hsv_feat
-
-        fused_feat = torch.cat([rgb_feat, hsv_feat], dim=1)
-        fused_feat = self.conv_fusion(fused_feat)
-
-        return fused_feat
+        return fea
 
 class MS_MSA(nn.Module):
     def __init__(self, dim, num_heads, bias):
