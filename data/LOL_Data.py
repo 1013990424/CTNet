@@ -75,11 +75,6 @@ class TrainData(Dataset):
         for i in range(len(self.img)):
             self.data.append([self.path + 'our485/low/' + self.img[i], self.path + 'our485/high/' + self.img[i]])
 
-        # self.path = '/data/low_light_dataset/LOL/'
-        # self.img = os.listdir(self.path + 'eval15/low')
-        # self.label = os.listdir(self.path + 'eval15/high')
-        # for i in range(len(self.img)):
-        #     self.data.append([self.path + 'eval15/low/' + self.img[i], self.path + 'eval15/high/' + self.img[i]])
         print(len(self.data))
 
     def __getitem__(self, item):
@@ -110,4 +105,5 @@ class TestData(Dataset):
 
     def __len__(self):
         return len(self.img)
+
 
