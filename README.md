@@ -9,11 +9,11 @@ This is the official PyTorch code for the paper "[[CTNet: Color Transformation N
 
 ## Contents
 
-- [x] [Datasets]()
+- [x] Datasets
 - [ ] Training
-- [x] [Testing]()
-- [x] [Results]()
-- [x] [Acknowledgements]()
+- [x] Testing
+- [x] Results
+- [x] Acknowledgements
 
 ## 1.Datasets
 
