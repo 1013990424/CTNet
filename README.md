@@ -9,11 +9,11 @@ This is the official PyTorch code for the paper "[[CTNet: Color Transformation N
 
 ## Contents
 
-- [x] [Datasets](https://github.com/NJUPT-IPR-XuLintao/UPT-Flow/blob/main/README.md#-datasets)
+- [x] [Datasets]()
 - [ ] Training
-- [x] [Testing](https://github.com/NJUPT-IPR-XuLintao/UPT-Flow/blob/main/README.md#-testing)
-- [x] [Results](https://github.com/NJUPT-IPR-XuLintao/UPT-Flow/blob/main/README.md#-results)
-- [x] [Acknowledgements](https://github.com/NJUPT-IPR-XuLintao/UPT-Flow/blob/main/README.md#-acknowledgements)
+- [x] [Testing]()
+- [x] [Results]()
+- [x] [Acknowledgements]()
 
 ## 1.Datasets
 
