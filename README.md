@@ -96,15 +96,6 @@ python test/unpair_test.py
   <p align="center">
   <img width="900" src="Figs/LOL.png">
 	</p>
-
-  <p align="center">
-  <img width="900" src="Figs/SDSD.png">
-	</p>
-
-  <p align="center">
-  <img width="900" src="Figs/SID.png">
-	</p>
- 
   </details>
 
 ## Contact
